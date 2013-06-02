@@ -11,6 +11,6 @@ cp SoftPaws-release-unsigned.apk SoftPaws-$VER.apk
 jarsigner -verify -verbose -certs SoftPaws-$VER.apk
 popd
 echo Built version $VER
-echo `pwd`/bin/SoftPaws-$VER.apk | xclip -selection clipboard
 rm `pwd`/assets/www/index.html
 zipalign -f -v 4 `pwd`/bin/SoftPaws-$VER.apk bin/SoftPaws-al-$VER.apk
+echo `pwd`/bin/SoftPaws-al-$VER.apk | xclip -selection clipboard

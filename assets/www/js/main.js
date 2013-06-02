@@ -1,16 +1,24 @@
 var Game = (function() {
 
-    var soundPtr = 1;
+    var soundPtr = 0;
     var SOUND_COUNT = 8;
+    var sounds = [];
 
-    for(var i = 1; i <= SOUND_COUNT; i++) {
-        wedge.preload("sfx/sound-" + i + ".wav");
+    for(var i = 0; i < SOUND_COUNT; i++) {
+        sounds.push(new Media("/android_asset/www/sfx/sound-" + i + ".mp3",
+            function() {
+                console.log('Success loading sound ' + i);
+            },
+            function(err) {
+                console.log('Error loading sound ' + i + "; " + err);
+            }
+        ));
     }
 
     function playNextSound() {
-        wedge.play("sfx/sound-" + soundPtr + ".wav");
-        if(++soundPtr > SOUND_COUNT) {
-            soundPtr = 1;
+        sounds[soundPtr].play();
+        if(++soundPtr >= SOUND_COUNT) {
+            soundPtr = 0;
         }
     }
 
