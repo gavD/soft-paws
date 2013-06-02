@@ -1,6 +1,5 @@
 var Game = (function() {
 
-    // I have a div called "page"
     var soundPtr = 1;
     var SOUND_COUNT = 8;
 
@@ -9,7 +8,6 @@ var Game = (function() {
     }
 
     function playNextSound() {
-        trace("Play sound " + soundPtr);
         wedge.play("sfx/sound-" + soundPtr + ".wav");
         if(++soundPtr > SOUND_COUNT) {
             soundPtr = 1;
@@ -168,19 +166,22 @@ var Game = (function() {
         playNextSound();
     }
 
-    $("#game").hammer({
+    var game = document.getElementById('game');
+    Hammer(game, {
             prevent_default: false,
             drag_vertical: false
         })
-        .bind("tap", function(ev) {
-            var pos = ev.position[0];
+        .on("tap", function(ev) {
+            var pos = ev.gesture.center;
+            console.log(pos);
+            //var pos = ev.position[0];
             var doPush = false;
 
             for (i = 0; i < spots.length; i++) {
                 var spot = spots[i];
 
-                var distFromX = Math.abs(spot.getX() - pos.x);
-                var distFromY = Math.abs(spot.getY() - pos.y);
+                var distFromX = Math.abs(spot.getX() - pos.pageX);
+                var distFromY = Math.abs(spot.getY() - pos.pageY);
 
                 if(distFromX < tapRadius && distFromY < tapRadius) {
                     doPush = true;
@@ -189,7 +190,7 @@ var Game = (function() {
             }
 
             if(doPush) {
-                spawnSpot(pos.x, pos.y);
+                spawnSpot(pos.pageX, pos.pageY);
             }
         }
     );
@@ -197,4 +198,25 @@ var Game = (function() {
     setInterval(gameLoop, frameRateMs);
 });
 
-Game();
+var app = {
+    // Application Constructor
+    initialize: function() {
+        this.bindEvents();
+    },
+    // Bind Event Listeners
+    //
+    // Bind any events that are required on startup. Common events are:
+    // 'load', 'deviceready', 'offline', and 'online'.
+    bindEvents: function() {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
+
+    // deviceready Event Handler
+    //
+    // The scope of 'this' is the event. In order to call the 'receivedEvent'
+    // function, we must explicity call 'app.receivedEvent(...);'
+    onDeviceReady: function() {
+        Game();
+    }
+};
+app.initialize();

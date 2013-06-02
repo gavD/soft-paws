@@ -17,10 +17,7 @@
         <canvas id="game"></canvas>
     </div>
 
-
-    <script type="text/javascript" src="lib/jquery-1.7.1.min.js?<?php echo rand();?>"></script>
     <script type="text/javascript" src="lib/hammer.js?<?php echo rand();?>"></script>
-    <script type="text/javascript" src="lib/jquery.hammer.js?<?php echo rand();?>"></script>
     <script type="text/javascript" src="lib/wedge/lib/buzz/buzz.js?<?php echo rand();?>"></script>
     <script type="text/javascript" src="lib/wedge/src/wedge.js?<?php echo rand();?>"></script>
     <script type="text/javascript" src="js/main.js?<?php echo rand();?>"></script>
