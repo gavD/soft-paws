@@ -1,3 +1,6 @@
 [submodule "assets/www/lib/js/appframework"]
 	path = assets/www/lib/js/appframework
 	url = git://github.com/01org/appframework.git
+[submodule "assets/www/lib/wedge"]
+	path = assets/www/lib/wedge
+	url = git://github.com/boxuk/wedge.js.git
