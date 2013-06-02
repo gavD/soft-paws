@@ -1,9 +1,15 @@
 #!/bin/bash
 cordova/clean
 pushd `pwd`/assets/www
-VER=`git describe --abbrev=0`
+export VER=`git describe --abbrev=0`
+
+sed "s/versionName=\"0.[0-9]*\"/versionName=\"0.$VER\"/" AndroidManifest.xml > tmp1.xml
+sed "s/versionCode=\"[0-9]*\"/versionCode=\"$VER\"/" tmp1.xml > AndroidManifest.xml
+rm tmp1.xml
+
 ./compile.sh
 popd
+
 cordova/release
 pushd `pwd`/bin
 jarsigner -verbose -sigalg MD5withRSA -digestalg SHA1 -keystore my-release-key.keystore -sigalg MD5withRSA -digestalg SHA1 -keystore ../my-release-key.keystore  SoftPaws-release-unsigned.apk SoftPaws
