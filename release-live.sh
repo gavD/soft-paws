@@ -6,6 +6,7 @@ export VER=`git describe --abbrev=0`
 ./compile.sh
 popd
 
+# Automatically update the version in the android manifest
 sed "s/versionName=\"0.[0-9]*\"/versionName=\"0.$VER\"/" AndroidManifest.xml > tmp1.xml
 sed "s/versionCode=\"[0-9]*\"/versionCode=\"$VER\"/" tmp1.xml > AndroidManifest.xml
 rm tmp1.xml
@@ -19,4 +20,6 @@ popd
 echo Built version $VER
 rm `pwd`/assets/www/index.html
 zipalign -f -v 4 `pwd`/bin/SoftPaws-$VER.apk bin/SoftPaws-al-$VER.apk
+
+# Copy built, signed, aligned APK location to clipboard
 echo `pwd`/bin/SoftPaws-al-$VER.apk | xclip -selection clipboard
